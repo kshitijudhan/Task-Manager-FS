@@ -6,10 +6,11 @@ import {
   updateTask,
   deleteTask,
 } from "../controllers/task.controller.js";
+import { validateTask } from "../middlewares/validateTask.js";
 
 const router = Router();
 
-router.post("/", createTask);
+router.post("/", validateTask, createTask);
 
 router.get("/", getTasks);
 
