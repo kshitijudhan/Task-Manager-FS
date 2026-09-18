@@ -1,6 +1,7 @@
+import { asyncHandler } from "../middlewares/asyncHandler.js";
 import { Task } from "../models/task.model.js";
 
-export const createTask = async (req, res) => {
+export const createTask = asyncHandler(async (req, res) => {
   const { title, description } = req.body;
 
   const task = await Task.create({
@@ -13,18 +14,18 @@ export const createTask = async (req, res) => {
     message: "Task created suyccessfully",
     task,
   });
-};
+});
 
-export const getTasks = async (req, res) => {
+export const getTasks = asyncHandler(async (req, res) => {
   const tasks = await Task.find();
 
   res.status(200).json({
     success: true,
     tasks,
   });
-};
+});
 
-export const getTaskById = async (req, res) => {
+export const getTaskById = asyncHandler(async (req, res) => {
   const id = req.params.id;
 
   const task = await Task.findById(id);
@@ -33,9 +34,9 @@ export const getTaskById = async (req, res) => {
     success: true,
     task,
   });
-};
+});
 
-export const updateTask = async (req, res) => {
+export const updateTask = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { title, description, completed } = req.body;
 
@@ -55,9 +56,9 @@ export const updateTask = async (req, res) => {
     success: true,
     task,
   });
-};
+});
 
-export const deleteTask = async (req, res) => {
+export const deleteTask = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   const task = await Task.findByIdAndDelete(id);
@@ -67,4 +68,4 @@ export const deleteTask = async (req, res) => {
     message: "Task Deleted",
     task,
   });
-};
+});
